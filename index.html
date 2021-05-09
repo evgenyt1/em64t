@@ -15,16 +15,19 @@
       background-size: cover;
       opacity: 0.3;
       transition: opacity 1s, filter 1s;
-      filter: blur(20px)
+      filter: blur(20px);
     }
   </style>
 </head>
 <body>
-  <div></div>
+  <div tabindex="0"></div>
   <script>
-    window.setTimeout(() => {
+    function doRun() {
       document.querySelector("div").style.opacity = 1;
       document.querySelector("div").style.filter = "blur(0)";
-    }, 1000);
+    }
+    document.querySelector("div").addEventListener("click", doRun);
+    document.querySelector("div").addEventListener("touchend", doRun);
+    window.setTimeout(doRun, 15000);
   </script>
 </body>
