@@ -17,17 +17,49 @@
       transition: opacity 1s, filter 1s;
       filter: blur(20px);
     }
+    section {
+      position: fixed;
+      top: 10vh;
+      text-align: center;
+      width: 100vw;
+      display: flex;
+justify-content: center;    }
+    a {
+      display: flex;
+      color: rgba(255, 255, 255, 0.8);
+      font-family: sans-serif;
+      font-weight: 100;
+      justify-content: center;   
+      align-items: center;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      text-decoration: none;
+      font-size: 30px;
+      transition: background-color 0.3s;
+    }
+    a:hover{
+      background: #fff;
+
+    }
   </style>
 </head>
 <body>
   <div tabindex="0"></div>
+  <section>
+    <a href="mailto:debconf@altmails.com">🔥</a>
+  </section>
   <script>
+    let run = false;
     function doRun() {
+      if (run) return;
+      run = true;
       document.querySelector("div").style.opacity = 1;
       document.querySelector("div").style.filter = "blur(0)";
     }
     document.querySelector("div").addEventListener("click", doRun);
     document.querySelector("div").addEventListener("touchend", doRun);
-    window.setTimeout(doRun, 10000);
+    window.setTimeout(doRun, 1000);
   </script>
 </body>
