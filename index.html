@@ -14,7 +14,8 @@
       background-position: 30% 74%;
       background-size: cover;
       opacity: 0.3;
-      transition: opacity 1s;
+      transition: all 1s;
+      filter: blur(20px)
     }
   </style>
 </head>
@@ -23,6 +24,7 @@
   <script>
     window.setTimeout(() => {
       document.querySelector("div").style.opacity = 1;
+      document.querySelector("div").style.filter = "blur(0)";
     }, 1000);
   </script>
 </body>
