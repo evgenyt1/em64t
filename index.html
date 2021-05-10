@@ -50,20 +50,20 @@
 </head>
 <body>
   <div tabindex="0"></div>
-  <section>
+  <!-- <section>
     <a href="mailto:debconf@altmails.com">🔥</a>
-  </section>
+  </section> -->
   <script>
     let run = false;
     function doRun() {
       if (run) return;
       run = true;
       document.querySelector("div").style.opacity = 1;
-      document.querySelector("div").style.filter = "blur(0)";
+      document.querySelector("div").style.filter = "blur(0px)";
     }
     document.querySelector("div").addEventListener("click", doRun);
     document.querySelector("div").addEventListener("touchend", doRun);
-    window.setTimeout(doRun, 1000);
+    window.setTimeout(doRun, 10000);
     let i = 0;
     window.setInterval(() => {
       // document.querySelector("a").className = i++ % 2 === 0 ? "zz" : "";
