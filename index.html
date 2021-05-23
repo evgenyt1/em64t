@@ -41,7 +41,8 @@
       transition: background-color 0.3s, opacity 0.3s;
       opacity: 0.9;
     }
-    a:hover, a.zz {
+    a:hover,
+    a.zz {
       background: rgba(255, 255, 255, 0.8);
       opacity: 1;
     }
@@ -60,6 +61,7 @@
       run = true;
       document.querySelector("div").style.opacity = 1;
       document.querySelector("div").style.filter = "blur(0px)";
+      gtag("event", "click-screen");
     }
     document.querySelector("div").addEventListener("click", doRun);
     document.querySelector("div").addEventListener("touchend", doRun);
@@ -68,5 +70,20 @@
     window.setInterval(() => {
       // document.querySelector("a").className = i++ % 2 === 0 ? "zz" : "";
     }, 1000);
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=UA-1944841-1"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "UA-1944841-1");
   </script>
 </body>
