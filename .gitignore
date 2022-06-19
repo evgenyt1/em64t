@@ -1,3 +1,6 @@
 *.png
 *.JPG
 .DS_Store
+*Dropbox*
+*1pif
+*.7z
