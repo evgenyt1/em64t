@@ -111,15 +111,15 @@
         id="textarea"
         style="
           background: #000;
-          color: #fff;
-          border: solid 1px blue;
+          color: #444;
+          border: none;
           font-family: monospace;
           font-size: 16px;
           width: 100%;
           box-sizing: border-box;
           outline: none;
         "
-        rows="10"
+        rows="1"
       ></textarea>
     </div>
   </div>
@@ -138,12 +138,21 @@
     gtag("config", "UA-1944841-1");
   </script>
   <script>
+    const output = document.getElementById("textarea");
+    output.value = "©" + new Date().getFullYear() + " EM64T.NET";
+    let initialized = false;
+    output.onclick = function () {
+      if (initialized) return;
+      initialized = true;
+      output.value = "";
+      output.style.color = "#fff";
+    };
+
     const encryptedDataAndIv =
       "6mAEIbUqinQUUX/X5ibjkfbO37msWJRI6196yREIoX3Dxz+0CuL9ASXvgdYBByECZQZJR/HW10HdAz7yn6HP5WApPcUHN3Ffv93ijvJfOHtLsFkaLz+oIGzo1w3FBJHfIvgV4bRN044ibdZDecghYrgx7GrYfay2IZn6q+ypO12dOz7+tZO3UXRAH3Y5zAYdFHm4/Rr3Aq6qDenR0Iiaetbu3OVaoowwZhdIqmfiC+R25+Z/8xoznuP0dLAfgsV9VA==:8G2mwkLDKXivSvKq";
 
     async function decryptData() {
       const password = document.getElementById("textarea").value;
-      const output = document.getElementById("textarea");
 
       const [encryptedDataBase64, ivBase64] = encryptedDataAndIv.split(":");
 
@@ -182,6 +191,8 @@
         );
         const decryptedText = decoder.decode(decryptedData);
         output.value = decryptedText;
+        output.rows = 12;
+        output.style.border = "solid 1px blue";
       } catch (error) {
         console.error(error);
         // output.value =
