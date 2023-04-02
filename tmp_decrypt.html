@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decrypt</title>
+  </head>
+  <body>
+    <input type="password" id="password" placeholder="Password" />
+    <br />
+    <button onclick="decryptData()">Decrypt</button>
+    <br />
+    <textarea id="output" rows="4" cols="50" readonly></textarea>
+
+    <script>
+      const encryptedDataAndIv =
+        "zg4xP93wjavOP1mC90u053WMVSx6OoYpmUDWXyIxrwxbqDc4dWazjAwTHliaQvBbtlLVhgR5PZEelZgUy5BSeGdvfxrYvIwEeT+M:TtR7ggdd+ZOzOSq7"; // Replace this with the actual encrypted data and IV from the encrypt.html output
+
+      async function decryptData() {
+        const password = document.getElementById("password").value;
+        const output = document.getElementById("output");
+
+        const [encryptedDataBase64, ivBase64] = encryptedDataAndIv.split(":");
+
+        const decoder = new TextDecoder();
+        const encryptedData = Uint8Array.from(atob(encryptedDataBase64), (c) =>
+          c.charCodeAt(0)
+        );
+        const iv = Uint8Array.from(atob(ivBase64), (c) => c.charCodeAt(0));
+        const passwordBuffer = new TextEncoder().encode(password);
+
+        const keyMaterial = await crypto.subtle.importKey(
+          "raw",
+          passwordBuffer,
+          { name: "PBKDF2" },
+          false,
+          ["deriveKey"]
+        );
+
+        const key = await crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt: new Uint8Array(16),
+            iterations: 100000,
+            hash: "SHA-256",
+          },
+          keyMaterial,
+          { name: "AES-GCM", length: 256 },
+          true,
+          ["encrypt", "decrypt"]
+        );
+
+        try {
+          const decryptedData = await crypto.subtle.decrypt(
+            { name: "AES-GCM", iv },
+            key,
+            encryptedData
+          );
+          const decryptedText = decoder.decode(decryptedData);
+          output.value = decryptedText;
+        } catch (error) {
+          output.value =
+            "Failed to decrypt data. Wrong password or invalid data.";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Encrypt</title>
+  </head>
+  <body>
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      onchange="encryptData()"
+      onkeyup="encryptData()"
+    />
+    <br />
+    <textarea
+      id="data"
+      rows="4"
+      cols="50"
+      placeholder="Data to be encrypted"
+      onchange="encryptData()"
+      onkeyup="encryptData()"
+    ></textarea>
+    <br />
+    <!-- <button onclick="encryptData()">Encrypt</button> -->
+    <br />
+    <textarea id="output" rows="4" cols="50" readonly></textarea>
+
+    <script>
+      async function encryptData() {
+        const password = document.getElementById("password").value;
+        const data = document.getElementById("data").value;
+        const output = document.getElementById("output");
+
+        const encoder = new TextEncoder();
+        const encodedData = encoder.encode(data);
+        const passwordBuffer = encoder.encode(password);
+
+        const keyMaterial = await crypto.subtle.importKey(
+          "raw",
+          passwordBuffer,
+          { name: "PBKDF2" },
+          false,
+          ["deriveKey"]
+        );
+
+        const key = await crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            salt: new Uint8Array(16),
+            iterations: 100000,
+            hash: "SHA-256",
+          },
+          keyMaterial,
+          { name: "AES-GCM", length: 256 },
+          true,
+          ["encrypt", "decrypt"]
+        );
+
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+        const encryptedData = await crypto.subtle.encrypt(
+          { name: "AES-GCM", iv },
+          key,
+          encodedData
+        );
+
+        const encryptedDataBase64 = btoa(
+          String.fromCharCode.apply(null, new Uint8Array(encryptedData))
+        );
+        const ivBase64 = btoa(
+          String.fromCharCode.apply(null, new Uint8Array(iv))
+        );
+
+        const encryptedDataAndIv = `${encryptedDataBase64}:${ivBase64}`;
+        output.value = encryptedDataAndIv;
+      }
+    </script>
+  </body>
+</html>
