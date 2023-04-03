@@ -6,19 +6,34 @@
     <title>Decrypt</title>
   </head>
   <body>
-    <input type="password" id="password" placeholder="Password" />
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      oninput="decryptData()"
+    />
     <br />
-    <button onclick="decryptData()">Decrypt</button>
+    <textarea
+      id="encryptedData"
+      rows="4"
+      cols="50"
+      placeholder="Encrypted data"
+      oninput="decryptData()"
+    ></textarea>
     <br />
     <textarea id="output" rows="4" cols="50" readonly></textarea>
 
     <script>
-      const encryptedDataAndIv =
-        "zg4xP93wjavOP1mC90u053WMVSx6OoYpmUDWXyIxrwxbqDc4dWazjAwTHliaQvBbtlLVhgR5PZEelZgUy5BSeGdvfxrYvIwEeT+M:TtR7ggdd+ZOzOSq7"; // Replace this with the actual encrypted data and IV from the encrypt.html output
-
       async function decryptData() {
         const password = document.getElementById("password").value;
+        const encryptedDataAndIv =
+          document.getElementById("encryptedData").value;
         const output = document.getElementById("output");
+
+        if (!encryptedDataAndIv.includes(":")) {
+          output.value = "Invalid encrypted data format.";
+          return;
+        }
 
         const [encryptedDataBase64, ivBase64] = encryptedDataAndIv.split(":");
 
