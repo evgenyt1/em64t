@@ -105,7 +105,6 @@
     <br /><br /><br />
     <div style="padding-top: 100vh">
       <textarea
-        placeholder="ZIP"
         oninput="decryptData()"
         id="textarea"
         style="
@@ -138,7 +137,7 @@
   </script>
   <script>
     const output = document.getElementById("textarea");
-    output.value = "©" + new Date().getFullYear() + " EM64T.NET";
+    output.value = output.placeholder = "©" + new Date().getFullYear() + " EM64T.NET";
     let initialized = false;
     output.onclick = function () {
       if (initialized) return;
