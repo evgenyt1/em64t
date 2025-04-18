@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <head>
-  <!-- <meta
+  <meta
     http-equiv="Content-Security-Policy"
     content="upgrade-insecure-requests"
-  /> -->
-  <meta name="robots" content="noindex" />
-  <!-- <script>
+  />
+  <meta name="robots" content="noindex"/>
+  <script>
     if (document.URL.substring(0, 5) == "http:")
       window.location.replace("https:" + document.URL.substring(5));
-  </script> -->
+  </script>
   <style>
     html,
     body {
@@ -23,7 +23,7 @@
     }
 
     .center {
-      width: 100%;
+      width: 280px;
       height: 60px;
       position: absolute;
     }
@@ -79,9 +79,10 @@
     <h1 style="color: rgba(255, 255, 255, 0.4)">Evgeny Tyukin</h1>
     <br />
     <br />
-
-    I provide a wide range of software development services for exhibition and
-    map vendor companies, with a focus on web mapping technologies.
+    
+    I provide a wide spectrum of software development services for
+     exhibitions and map vendor companies, mostly in the field of web mapping
+    technologies.
     <br />
     <br />
     GitHub:
@@ -91,18 +92,6 @@
     <br />
     <br />
     <div class="center">
-      <!-- <button
-        class="btn"
-        href="mailto:contact-site@em64t.net"
-        onclick="window.location.href='mailto:contact@em64t.net'"
-      >
-        <svg width="280px" height="60px" viewBox="0 0 280 60" class="border">
-          <polyline points="279,1 279,59 1,59 1,1 279,1" class="bg-line" />
-          <polyline points="279,1 279,59 1,59 1,1 279,1" class="hl-line" />
-        </svg>
-        <span>Get in touch</span>
-      </button>
-       -->
       <button
         class="btn"
         href="mailto:contact-site@em64t.net"
@@ -112,7 +101,7 @@
           <polyline points="279,1 279,59 1,59 1,1 279,1" class="bg-line" />
           <polyline points="279,1 279,59 1,59 1,1 279,1" class="hl-line" />
         </svg>
-        <span>The Art of Irritation</span>
+        <span>Get in touch</span>
       </button>
     </div>
     <br /><br /><br />
@@ -150,8 +139,7 @@
   </script>
   <script>
     const output = document.getElementById("textarea");
-    output.value = output.placeholder =
-      "©" + new Date().getFullYear() + " EM64T.NET";
+    output.value = output.placeholder = "©" + new Date().getFullYear() + " EM64T.NET";
     let initialized = false;
     output.onclick = function () {
       if (initialized) return;
